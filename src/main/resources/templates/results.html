@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<h1>Result page</h1>
+<form th:action="@{/results}" method = "post">
+    <h2>Search by:</h2>
+
+    <p>
+            <span th:each="column : ${columns}">
+                <input
+                        type="radio"
+                        name="searchType"
+                        th:id="${column.key}"
+                        th:value="${column.key}"
+                        th:checked="${column.key == 'all'}"/>
+                <label th:for="${column.key}" th:text="${column.value}"></label>
+            </span>
+
+    </p>
+
+    <p>
+        <label for="searchTerm">Keyword:</label>
+        <input type="text" name="searchTerm" id="searchTerm" />
+    </p>
+
+    <input type="submit" value="Search" />
+</form>
+<th:block th:each="jobCategory : ${jobs}">
+    <div th:replace = "fragments :: jobfragment"></div>
+</th:block>
+
+</body>
+</html>
